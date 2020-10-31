@@ -19,4 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'items'], function () {
+    Route::get('/', 'ItemController@search')
+        ->name('items.search');
+    Route::get('/detail/{item_id}', 'ItemController@detail')
+        ->where(['item_id' => '\d+'])
+        ->name('items.detail');
+});
