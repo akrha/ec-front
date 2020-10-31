@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'TopController@top');
+
+Route::group(['prefix' => 'items'], function () {
+    Route::get('/', 'ItemController@search')
+        ->name('items.search');
+    Route::get('/detail/{item_id}', 'ItemController@detail')
+        ->where(['item_id' => '\d+'])
+        ->name('items.detail');
+});
