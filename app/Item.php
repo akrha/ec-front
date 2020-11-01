@@ -41,10 +41,20 @@ class Item extends Model
             $orderBy = 'updated_at';
             $sort = 'asc';
         }
+        $tag_id = !empty($query['tag_id']) ? $query['tag_id'] : null;
 
         return $items
+        ->select([
+            'items.*'
+        ])
+        ->leftJoin('item_tags', 'item_tags.item_id', '=', 'items.id')
+        ->leftJoin('tags', 'tags.id', '=', 'item_tags.tag_id')
         ->when($q, function ($items, $q) {
             return $items->where('item_name', 'like', "%" . $q . "%");
+        })
+        ->when($tag_id, function ($items, $tag_id) {
+            return $items
+                ->where('item_tags.tag_id', '=', $tag_id);
         })
         ->orderBy($orderBy, $sort)
         ->get();
