@@ -59,4 +59,15 @@ class Item extends Model
         ->orderBy($orderBy, $sort)
         ->get();
     }
+
+    public function getItemDetail(int $item_id) :?Item
+    {
+        $result = Item::select(
+            'items.*'
+        )
+        ->where('items.id', $item_id)
+        ->first();
+
+        return $result;
+    }
 }

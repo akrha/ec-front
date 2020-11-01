@@ -19,13 +19,22 @@ class ItemController extends Controller
     ) {
         $items = $this->item->searchByParams($request->query());
         
-        return view('item.list',[
+        return view('item.list', [
             'items' => $items,
             'request' => $request->all()
         ]);
     }
 
-    public function detail()
+    public function detail(int $item_id)
     {
+        $item = $this->item->getItemDetail($item_id);
+
+        if (is_null($item)) {
+            abort('404', 'Item Not found');
+        }
+
+        return view('item.detail', [
+            'item' => $item
+        ]);
     }
 }
