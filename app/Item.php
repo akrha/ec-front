@@ -41,7 +41,6 @@ class Item extends Model
             $orderBy = 'updated_at';
             $sort = 'asc';
         }
-<<<<<<< HEAD
         $tag_id = !empty($query['tag_id']) ? $query['tag_id'] : null;
 
         return $items
@@ -71,14 +70,4 @@ class Item extends Model
 
         return $result;
     }
-=======
-
-        return $items
-        ->when($q, function ($items, $q) {
-            return $items->where('item_name', 'like', "%" . $q . "%");
-        })
-        ->orderBy($orderBy, $sort)
-        ->get();
-    }
->>>>>>> dd5f76ee5833699cf70edf68ae81ba3bd3e3e179
 }
