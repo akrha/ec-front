@@ -31,7 +31,9 @@ class ItemController extends Controller
 
     public function detail(int $item_id)
     {
-        $item = $this->item->getItemDetail($item_id);
+        $login_id = Auth::id();
+
+        $item = $this->item->getItemDetail($item_id, $login_id);
 
         if (is_null($item)) {
             abort('404', 'Item Not found');
