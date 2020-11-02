@@ -1,3 +1,10 @@
+@extends('common.main')
+
+@section('title')
+お気に入り商品一覧
+@endsection
+
+@section('body')
 @foreach ($items as $item)
 @if ($item->favorite_id)
 <h2>{{ $item->item_name }}</h2>
@@ -16,3 +23,4 @@
     {!! Form::close() !!}
 @endif
 @endforeach
+@endsection
