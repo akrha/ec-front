@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Item extends Model
 {
@@ -12,7 +12,7 @@ class Item extends Model
     public function searchByParams(
         ?array $query,
         ?int $login_id // お気に入り情報取得用
-    ) :?Collection {
+    ) :?LengthAwarePaginator {
         $items = new Item();
 
         $q = !empty($query['q']) ? $query['q'] : null;
@@ -63,7 +63,7 @@ class Item extends Model
                     ->leftJoin('favorites', 'favorites.item_id', '=', 'items.id');
             })
             ->orderBy($orderBy, $sort)
-            ->get();
+            ->paginate(5);
     }
 
     public function getItemDetail(int $item_id) :?Item

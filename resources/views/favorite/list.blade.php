@@ -23,4 +23,5 @@
     {!! Form::close() !!}
 @endif
 @endforeach
+{{ $items->links() }}
 @endsection
