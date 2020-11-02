@@ -20,8 +20,9 @@ class ItemController extends Controller
     public function search(
         Request $request
     ) {
-        $items = $this->item->searchByParams($request->query());
-        
+        $login_id = Auth::id();
+        $items = $this->item->searchByParams($request->query(), $login_id);
+
         return view('item.list', [
             'items' => $items,
             'request' => $request->all()

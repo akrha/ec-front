@@ -9,36 +9,38 @@ class Item extends Model
 {
     protected $table = 'items';
 
-    public function searchByParams(?array $query) :?Collection
-    {
+    public function searchByParams(
+        ?array $query,
+        ?int $login_id // お気に入り情報取得用
+    ) :?Collection {
         $items = new Item();
 
         $q = !empty($query['q']) ? $query['q'] : null;
         if (!empty($query['sort'])) {
             switch ($query['sort']) {
                 case 'updatedAtAsc':
-                    $orderBy = 'updated_at';
+                    $orderBy = 'items.updated_at';
                     $sort = 'asc';
                     break;
                 case 'updatedAtDesc':
-                    $orderBy = 'updated_at';
+                    $orderBy = 'items.updated_at';
                     $sort = 'desc';
                     break;
                 case 'priceAsc':
-                    $orderBy = 'price';
+                    $orderBy = 'items.price';
                     $sort = 'asc';
                     break;
                 case 'priceDesc':
-                    $orderBy = 'price';
+                    $orderBy = 'items.price';
                     $sort = 'desc';
                     break;
                 default:
-                    $orderBy = 'updated_at';
+                    $orderBy = 'items.updated_at';
                     $sort = 'asc';
                     break;
             }
         } else {
-            $orderBy = 'updated_at';
+            $orderBy = 'items.updated_at';
             $sort = 'asc';
         }
         $tag_id = !empty($query['tag_id']) ? $query['tag_id'] : null;
@@ -54,6 +56,11 @@ class Item extends Model
             ->when($tag_id, function ($items, $tag_id) {
                 return $items
                     ->where('item_tags.tag_id', '=', $tag_id);
+            })
+            ->when($login_id, function($items, $login_id) {
+                return $items
+                    ->addSelect('favorites.id AS favorite_id')
+                    ->leftJoin('favorites', 'favorites.item_id', '=', 'items.id');
             })
             ->orderBy($orderBy, $sort)
             ->get();
