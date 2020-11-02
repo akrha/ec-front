@@ -25,3 +25,12 @@ Route::group(['prefix' => 'items'], function () {
         ->where(['item_id' => '\d+'])
         ->name('items.detail');
 });
+
+Route::group(['prefix' => 'favorites'], function () {
+    Route::get('/', 'FavoriteController@list')
+        ->name('favorites.list');
+    Route::post('/create', 'FavoriteController@create')
+        ->name('favorites.create');
+    Route::post('/destroy', 'FavoriteController@destroy')
+        ->name('favorites.destroy');
+});

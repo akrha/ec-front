@@ -19,6 +19,21 @@
     <p><img src="/{{ $item->photo_url }}" alt=""></p>
 
     <a href="{{ route('items.detail', ['item_id' => $item->id]) }}">商品詳細</a>
+
+    @if (Auth::id())
+    @if ($item->favorite_id)
+    {!! Form::open(['route' => 'favorites.destroy']) !!}
+    {!! Form::hidden('item_id', $item->id) !!}
+    {!! Form::submit('お気に入りから削除💔') !!}
+    {!! Form::close() !!}
+    @else
+    {!! Form::open(['route' => 'favorites.create']) !!}
+    {!! Form::hidden('item_id', $item->id) !!}
+    {!! Form::submit('お気に入りに追加❤️') !!}
+    {!! Form::close() !!}
+    @endif
+    @endif
+
     @endforeach
     @if (empty($item))
     お探しの商品は見つかりませんでした。
