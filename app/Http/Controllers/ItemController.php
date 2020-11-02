@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Item;
+use App\ItemTag;
 
 class ItemController extends Controller
 {
     public function __construct(
-        Item $item
+        Item $item,
+        ItemTag $item_tag
     ) {
         $this->item = $item;
+        $this->item_tag = $item_tag;
     }
 
     public function search(
@@ -33,8 +36,11 @@ class ItemController extends Controller
             abort('404', 'Item Not found');
         }
 
+        $tags = $this->item_tag->getItemTagsByItemId($item_id);
+
         return view('item.detail', [
-            'item' => $item
+            'item' => $item,
+            'tags' => $tags
         ]);
     }
 }

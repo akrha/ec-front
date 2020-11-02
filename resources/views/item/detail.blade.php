@@ -18,6 +18,12 @@
     更新日：
     <p>{{ $item->updated_at }}</p>
     画像：
-    <p><img src="{{ $item->photo_url }}" alt=""></p>
+    <p><img src="/{{ $item->photo_url }}" alt=""></p>
+    タグ：
+    @if ($tags)
+    @foreach ($tags as $tag)
+    <a href="{{ route('items.search', ['tag_id' => $tag->id]) }}">{{ $tag->name }}</a>
+    @endforeach
+    @endif
 </body>
 </html>

@@ -16,7 +16,7 @@
     価格：
     <p>{{ $item->price }} 円</p>
     画像：
-    <p><img src="{{ $item->photo_url }}" alt=""></p>
+    <p><img src="/{{ $item->photo_url }}" alt=""></p>
 
     <a href="{{ route('items.detail', ['item_id' => $item->id]) }}">商品詳細</a>
     @endforeach
