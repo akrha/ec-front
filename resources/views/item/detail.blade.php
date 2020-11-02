@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>商品詳細</title>
-</head>
-<body>
-    <h1>商品詳細ページ</h1>
+@extends('common.main')
+
+@section('title')
+商品詳細
+@endsection
+
+@section('body')
+<h1>商品詳細ページ</h1>
     <h2>{{ $item->item_name }}</h2>
     説明：
     <pre>{{ $item->description }}</pre>
@@ -25,5 +23,4 @@
     <a href="{{ route('items.search', ['tag_id' => $tag->id]) }}">{{ $tag->name }}</a>
     @endforeach
     @endif
-</body>
-</html>
+@endsection

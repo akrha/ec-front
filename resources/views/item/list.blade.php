@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>出品中商品一覧</title>
-</head>
-<body>
+@extends('common.main')
+
+@section('title')
+出品中商品一覧
+@endsection
+
+@section('body')
 @include('common.searchform')
     <h1>商品一覧</h1>
     @foreach ($items as $item)
@@ -39,5 +37,4 @@
     お探しの商品は見つかりませんでした。
     @endif
 @include('common.searchform')
-</body>
-</html>
+@endsection

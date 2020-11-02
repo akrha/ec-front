@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::get('/', 'TopController@top');
+Route::get('/', 'TopController@top')->name('top');
 
 Route::group(['prefix' => 'items'], function () {
     Route::get('/', 'ItemController@search')
