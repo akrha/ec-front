@@ -33,6 +33,7 @@
     @endif
 
     @endforeach
+    {{ $items->links() }}
     @if (empty($item))
     お探しの商品は見つかりませんでした。
     @endif

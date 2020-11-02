@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Favorite extends Model
 {
@@ -12,14 +12,14 @@ class Favorite extends Model
 
     public function getFavoriteList(
         int $user_id
-    ) : ?Collection {
+    ) : ?LengthAwarePaginator {
         return Favorite::select([
             'items.*',
             'favorites.id AS favorite_id'
         ])
         ->leftJoin('items', 'items.id', '=', 'favorites.item_id')
         ->where('favorites.user_id', '=', $user_id)
-        ->get();
+        ->paginate(5);
     }
 
     public function createFavorite(
