@@ -9,6 +9,6 @@ TOP PAGE
 @include('common.searchform')
 <h1>ラベルから探す</h1>
 @foreach ($tags as $tag)
-<a href="{{ route('items.search', ['tag_id' => $tag['id']]) }}">{{ $tag['name'] }}</a>
+<a href="{{ route('items.search', ['tag_id' => $tag['id']]) }}" class="btn btn-warning">{{ $tag['name'] }}</a>
 @endforeach
 @endsection

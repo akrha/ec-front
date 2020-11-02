@@ -66,11 +66,16 @@ class Item extends Model
             ->paginate(5);
     }
 
-    public function getItemDetail(int $item_id) :?Item
+    public function getItemDetail(int $item_id, ?int $login_id) :?Item
     {
         $result = Item::select(
             'items.*'
         )
+        ->when($login_id, function($items, $login_id) {
+            return $items
+                ->addSelect('favorites.id AS favorite_id')
+                ->leftJoin('favorites', 'favorites.item_id', '=', 'items.id');
+        })
         ->where('items.id', $item_id)
         ->first();
 
